@@ -28,7 +28,7 @@ mongoose.connect(MONGO_URI, {
 const itemSchema = new mongoose.Schema({
     name: { type: String, required: true },
     description: String,
-    price: Number,
+    price: {type: Number, required: true},
     addProps: Boolean
 }, { timestamps: true });
 
@@ -57,10 +57,25 @@ app.get("/items", async (req: Request, res: Response) => {
     }
 });
 
-// Lire tous les items
-app.get("/items/:id", async (req: Request, res: Response) => {
+// Lire entre 
+app.post("/items/price-range", async (req: Request, res: Response) => {
+    const { min, max } = req.body;
+    try {
+        const items = await Item.find({ price: { $gte: min, $lte: max } }).sort({ price: -1 });
+        res.status(200).json(items);
+    } catch (error) {
+        res.status(500).json({ error: (error as Error).message });
+    }
+});
+
+// Lire un seul items
+app.get("/item/:id", async (req: Request, res: Response) => {
     try {
         const item = await Item.findById(req.params.id);
+        console.log(item)
+        if (!item) {
+            res.status(404).json({ error: "Item non trouvé" });
+        }
         res.status(200).json(item);
     } catch (error) {
         res.status(500).json({ error: ( error as Error).message });

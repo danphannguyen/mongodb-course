@@ -5,7 +5,7 @@ Content-Type: application/json
 {
     "name": "Exemple Item",
     "description": "Ceci est un exemple",
-    "price": 100,
+    "price": 0,
     "addProps": true
 }
 
@@ -13,7 +13,16 @@ Content-Type: application/json
 GET http://localhost:8082/items
 
 ### Lire un seul item
-GET http://localhost:8082/items/67a09ee5dfdc93a64b1c5665
+GET http://localhost:8082/item/67a09ee5dfdc93a64b1c5665
+
+### Get PRICE entre min & max
+POST http://localhost:8082/items/price-range
+Content-Type: application/json
+
+{
+    "min": 0,
+    "max": 20
+}
 
 ### Mettre à jour un item
 PUT http://localhost:8082/items/67a09981bcae68475b85fbe4

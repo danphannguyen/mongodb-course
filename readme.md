@@ -17,6 +17,9 @@
 `dotenv` permet d'importer les variables du .env
 `mongoose` permet de faire le pont entre le server mongodb et mon application ( sait comment communiquer )
 
-
+= mongodb =
+`.find({})` renvoie toute les occurences en BDD
+`.find({ price: { $gte: min, $lte: max } })` renvoie toute les occurences entre les prix définis
+`.sort({ price: -1 })` trie selon un ordre ASC = 1 ou DESC = -1
 
 
